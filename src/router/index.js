@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import News from "../views/News.vue";
+import News from "../components/News.vue";
+import Category from "../views/Category.vue";
 import Match from "../views/Match.vue";
 import Team from "../views/Team.vue";
 import Ticket from "../views/Ticket.vue";
@@ -17,9 +18,18 @@ const routes = [
     component: Home,
   },
   {
-    path: "/news",
-    name: "news",
-    component: News,
+    path: "/categories",
+    name: "categories",
+    component: Category,
+    props: true,
+    children: [
+      {
+        path: ":id/news",
+        name: "news",
+        component: News,
+        props: true
+      }
+    ]
   },
   {
     path: "/matches",
