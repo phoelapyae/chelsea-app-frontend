@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/photos/chelsea.png" /> -->
+    <img alt="Vue logo" src="../assets/photos/chelsea.png" />
+    
   </div>
 </template>
 

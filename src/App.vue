@@ -11,10 +11,10 @@
               <router-link class="nav-link" :to="{ name: 'home' }">HOME</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'categories' }">NEWS</router-link> 
+              <router-link class="nav-link" :to="{ name: 'news', params: { id: 1 } }">NEWS</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'matches' }">MATCHES</router-link>  
+              <router-link class="nav-link" :to="{ name: 'fixtures' }">MATCHES</router-link>  
             </li>
             <li class="nav-item active">
               <router-link class="nav-link" :to="{ name: 'teams' }">TEAMS</router-link> 

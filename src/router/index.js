@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import News from "../components/News.vue";
+import MatchFixture from "../components/MatchFixture.vue";
 import Category from "../views/Category.vue";
 import Match from "../views/Match.vue";
 import Team from "../views/Team.vue";
@@ -21,7 +22,6 @@ const routes = [
     path: "/categories",
     name: "categories",
     component: Category,
-    props: true,
     children: [
       {
         path: ":id/news",
@@ -35,6 +35,13 @@ const routes = [
     path: "/matches",
     name: "matches",
     component: Match,
+    children: [
+      {
+        path: "fixtures",
+        name: "fixtures",
+        component: MatchFixture
+      }
+    ]
   },
   {
     path: "/teams",
