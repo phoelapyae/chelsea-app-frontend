@@ -37,9 +37,10 @@ const routes = [
     component: Match,
     children: [
       {
-        path: "fixtures",
+        path: ":id/fixtures",
         name: "fixtures",
-        component: MatchFixture
+        component: MatchFixture,
+        props: true
       }
     ]
   },

@@ -14,7 +14,7 @@
               <router-link class="nav-link" :to="{ name: 'news', params: { id: 1 } }">NEWS</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'fixtures' }">MATCHES</router-link>  
+              <router-link class="nav-link" :to="{ name: 'fixtures', params: { id: 1} }">MATCHES</router-link>  
             </li>
             <li class="nav-item active">
               <router-link class="nav-link" :to="{ name: 'teams' }">TEAMS</router-link> 
@@ -37,12 +37,29 @@
         </div>
       </nav>
     </div>
-    <router-view />
+    <router-view class="content"/>
+    <hr>
+    <Sponsor/>
+    <Footer/>
   </div>
 </template>
 
-<style>
+<script>
+import Sponsor from '@/components/Sponsor.vue';
+import Footer from '@/components/Footer.vue';
+export default {
+    components: {
+        Sponsor,
+        Footer
+    }
+}
+</script>
 
+<style>
+.content {
+background: rgb(224, 235, 235);
+
+}
 @import'~bootstrap/dist/css/bootstrap.css'
 
 </style>

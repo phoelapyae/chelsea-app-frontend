@@ -8,7 +8,7 @@
                         v-for='(type,index) in matchTypes'
                         :key="index"
                     >
-                        <router-link class="nav-link text-dark" :to="{ name: 'news', params: {id: type.id} }">
+                        <router-link class="nav-link text-dark" :to="{ name: 'fixtures', params: {id: type.id} }">
                             {{ type.name }}
                         </router-link>
                     </li>
