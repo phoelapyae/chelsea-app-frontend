@@ -1,37 +1,40 @@
 <template>
   <div id="app">
     <div id="nav">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <router-link class="nav-link" :to="{ name: 'home' }">
+            <img alt="Vue logo" src="./assets/photos/chelsea.png" />
+          </router-link>
+          <ul class="navbar-nav ml-3 mr-auto">
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'home' }">HOME</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'home' }">HOME</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'news', params: { id: 1 } }">NEWS</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'news', params: { id: 1 } }">NEWS</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'fixtures', params: { id: 1} }">MATCHES</router-link>  
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'fixtures', params: { id: 1} }">MATCHES</router-link>  
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'teams' }">TEAMS</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'teams' }">TEAMS</router-link> 
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'tickets' }">TICKETS</router-link>             
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'tickets' }">TICKETS & MEMBERSHIP</router-link>             
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" :to="{ name: 'clubs' }">CLUBS</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'clubs' }">CLUB CHELSEA</router-link> 
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <router-link class="nav-link" to="">LOG IN</router-link>             
+              <router-link class="nav-link text-dark font-weight-bold" to="">LOG IN</router-link>             
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link" to="">SIGN UP</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" to="">SIGN UP</router-link> 
             </li>
           </ul>
         </div>
@@ -60,6 +63,7 @@ export default {
 background: rgb(224, 235, 235);
 
 }
-@import'~bootstrap/dist/css/bootstrap.css'
+@import'~bootstrap/dist/css/bootstrap.css';
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
 
 </style>

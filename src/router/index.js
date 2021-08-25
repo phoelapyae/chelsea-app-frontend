@@ -2,13 +2,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import News from "../components/News.vue";
-import MatchFixture from "../components/MatchFixture.vue";
+import FixtureResult from "../components/FixtureResult.vue";
 import Category from "../views/Category.vue";
 import Match from "../views/Match.vue";
+import LeagueTable from "../views/LeagueTable.vue";
+import DownloadableFixture from "../views/DownloadableFixture.vue";
 import Team from "../views/Team.vue";
 import Ticket from "../views/Ticket.vue";
 import Club from "../views/Club.vue";
-import Shop from "../views/Shop.vue";
 
 Vue.use(VueRouter);
 
@@ -39,8 +40,18 @@ const routes = [
       {
         path: ":id/fixtures",
         name: "fixtures",
-        component: MatchFixture,
+        component: FixtureResult,
         props: true
+      },
+      {
+        path: "league-table",
+        name: "league-table",
+        component: LeagueTable
+      },
+      {
+        path: "downloadable-fixture",
+        name: "downloadable-fixture",
+        component: DownloadableFixture
       }
     ]
   },
@@ -58,12 +69,7 @@ const routes = [
     path: "/clubs",
     name: "clubs",
     component: Club,
-  },
-  {
-    path: "/shops",
-    name: "shops",
-    component: Shop,
-  },
+  }
 ];
 
 const router = new VueRouter({

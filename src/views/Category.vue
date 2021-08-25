@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-navbar justify-content-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-light bg-navbar justify-content-center">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li 
@@ -15,7 +15,6 @@
                 </ul>
             </div>
         </nav>
-        <!-- <News/> -->
         <router-view></router-view>
     </div>
 </template>
@@ -32,6 +31,7 @@ export default {
 
 <style scoped>
 .bg-navbar{
-    background: rgb(192, 189, 214);
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 </style>

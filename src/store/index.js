@@ -10,7 +10,8 @@ export default new Vuex.Store({
     news: [],
     categories: [],
     matchTypes: [],
-    matches: []
+    matches: [],
+    leagueTables: []
   },
   mutations: {
     SET_TO_CATEGORIES(state, categories) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_TO_MATCHES(state, matches) {
       state.matches = matches
+    },
+    SET_TO_LEAGUE_TABLES(state, league_table) {
+      state.leagueTables = league_table
     }
   },
   actions: {
@@ -62,6 +66,15 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err.response);
         })
+    },
+    FETCH_LEAGUE_TABLES({ commit }) {
+      return MatchService.getLeagueTables()
+        .then((res) => {
+          commit('SET_TO_LEAGUE_TABLES', res.data.data)
+        })
+        .catch(err => {
+        console.log(err.response)
+      })
     }
   },
   modules: {},

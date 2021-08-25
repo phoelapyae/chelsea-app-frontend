@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-navbar justify-content-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-navbar bg-light justify-content-center">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li 
@@ -8,7 +8,13 @@
                         v-for='(type,index) in matchTypes'
                         :key="index"
                     >
-                        <router-link class="nav-link text-dark" :to="{ name: 'fixtures', params: {id: type.id} }">
+                        <router-link v-if="type.id == 1 || type.id == 2" class="nav-link text-dark" :to="{ name: 'fixtures', params: {id: type.id} }">
+                            {{ type.name }}
+                        </router-link>
+                        <router-link v-else-if="type.id == 3" class="nav-link text-dark" :to="{ name: 'league-table' }">
+                            {{ type.name }}
+                        </router-link>
+                        <router-link v-else-if="type.id == 4" class="nav-link text-dark" :to="{ name: 'downloadable-fixture' }">
                             {{ type.name }}
                         </router-link>
                     </li>
@@ -31,6 +37,7 @@ export default {
 
 <style scoped>
 .bg-navbar{
-    background: rgb(192, 189, 214);
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 </style>
