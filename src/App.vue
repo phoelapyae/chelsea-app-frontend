@@ -20,7 +20,7 @@
               <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'fixtures', params: { id: 1} }">MATCHES</router-link>  
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'teams' }">TEAMS</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'teams', params: { team_type_id: 1, work_type_id: 1 } }">TEAMS</router-link> 
             </li>
             <li class="nav-item active">
               <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'tickets' }">TICKETS & MEMBERSHIP</router-link>             

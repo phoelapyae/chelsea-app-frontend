@@ -1,8 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+
+// Component import
 import News from "../components/News.vue";
 import FixtureResult from "../components/FixtureResult.vue";
+
+// Page import 
+import Home from "../views/Home.vue";
 import Category from "../views/Category.vue";
 import Match from "../views/Match.vue";
 import LeagueTable from "../views/LeagueTable.vue";
@@ -24,12 +28,7 @@ const routes = [
     name: "categories",
     component: Category,
     children: [
-      {
-        path: ":id/news",
-        name: "news",
-        component: News,
-        props: true
-      }
+      { path: ":id/news", name: "news", component: News, props: true }
     ]
   },
   {
@@ -37,28 +36,16 @@ const routes = [
     name: "matches",
     component: Match,
     children: [
-      {
-        path: ":id/fixtures",
-        name: "fixtures",
-        component: FixtureResult,
-        props: true
-      },
-      {
-        path: "league-table",
-        name: "league-table",
-        component: LeagueTable
-      },
-      {
-        path: "downloadable-fixture",
-        name: "downloadable-fixture",
-        component: DownloadableFixture
-      }
+      { path: ":id/fixtures", name: "fixtures", component: FixtureResult, props: true },
+      { path: "league-table", name: "league-table", component: LeagueTable },
+      { path: "downloadable-fixture", name: "downloadable-fixture", component: DownloadableFixture }
     ]
   },
   {
-    path: "/teams",
+    path: "/teams?team_type_id=:team_type_id&work_type_id=:work_type_id",
     name: "teams",
     component: Team,
+    props: true
   },
   {
     path: "/tickets",

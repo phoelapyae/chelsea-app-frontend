@@ -9,5 +9,8 @@ export default {
     },
     getTeamTypes() {
         return apiClient.get('/team-types')
+    },
+    getTeams(team_type_id,work_type_id) {
+        return apiClient.get('/teams?team_type_id=' + team_type_id + '&work_type_id=' + work_type_id)
     }
 }
