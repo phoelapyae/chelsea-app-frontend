@@ -46,46 +46,13 @@
         </li>
       </ul>
     </div>
-    <div v-if="teams.length > 0" class="px-4">
-      <div class="accordian-content">
-        <div v-for="(pos,index) in positions" :key="index">
-          <div class="accordian-item">
-            <h3 @click="togglePosition(pos.id)" class="font-weight-bold accordian-title">{{ pos.name }}</h3>
-            <div v-if="pos.expanded" class="row">
-              <div v-for="(team,index) in teams" 
-                :key="index">
-                  <div 
-                    class="col-md-12 accordian-items__card mb-3 mr-2" 
-                    v-show="pos.id == team.position.id"
-                  >
-                    <div class="card-content">
-                      <div class="card-content__image">
-                        <img v-bind:src="team.avater" alt="">
-                      </div>
-                      <div class="row card-content__title">
-                        <div class="card-content__number p-1">
-                          <span class="text-white font-weight-bold">{{ team.number }}</span>
-                        </div>
-                        <h3 class="text-white font-weight-bold mt-2">
-                          {{ team.name }}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="p-5" v-else>
-      <h3>There is no data yet for this page. Please visit later.</h3>
-    </div>
+    <TeamCard :teams="teams" :positions="positions"></TeamCard>
   </div>
 </template>
 
 <script>
 import TeamService from "@/services/TeamService.js";
+import TeamCard from '@/components/TeamCard.vue';
 
 function getTeams(to, next){
   let team_type_id = to.params.team_type_id
@@ -112,6 +79,9 @@ export default {
       default: 1
     },
   },
+  components: {
+    TeamCard
+  },
   data() {
     return {
       positions: [],
@@ -122,10 +92,6 @@ export default {
       expanded: {
         type: Boolean,
         default: true
-      },
-      active: {
-        type: Boolean,
-        default: false
       }
     };
   },
@@ -136,10 +102,8 @@ export default {
     })
   },
   beforeRouteUpdate(to, from, next){
-    
     getTeams(to, next)
     .then((res) => {
-      // console.log(res);
       this.teams = res.teams 
       this.positions = res.positions
     })
@@ -152,10 +116,7 @@ export default {
     this.getTeamTypes();
 
     // get teams
-    this.getTeams(1,1)
-
-     // get positions
-    // this.getPositions();
+    this.getTeams(1,1)   
   },
   methods: {
     getPositions() {
@@ -186,7 +147,6 @@ export default {
         });
     },
     getTeams(team_type_id, work_type_id){
-
       return TeamService.getTeams(team_type_id, work_type_id)
       .then((res) => {
         this.teams = res.data.data.teams
@@ -206,6 +166,10 @@ export default {
       }) 
     },
     setActive(id){
+      this.workTypes.map(workType => {
+        workType = workType.id ==1 ? workType.active = true : workType.active = false
+        return workType
+      })
       return this.teamTypes.map(teamType => {
         teamType = id == teamType.id ? teamType.active = true : teamType.active = false
         return teamType
@@ -246,45 +210,6 @@ export default {
 .work-type-button:hover {
   color: #fff;
   background: blueviolet;
-}
-.accordian-title {
-  cursor: pointer;
-}
-
-.accordian-items__card {
-  height: 400px;
-  width: 400px;
-  /* background-color: blueviolet; */
-}
-.hide-card {
-  display: none;
-}
-
-.card-content__image > img {
-  width: 100% !important;
-  height: 350px !important;
-  transition: all 0.5s;
-}
-
-.card-content__image > img:hover {
-    box-shadow: 3px 3px 15px 2px rgb(74, 74, 75);
-}
-
-div.row.card-content__title {
-  margin: -54px 0 0 4px;
-}
-
-.card-content__number {
-  background-color: blue;
-  width: 50px;
-  height: 50px;
-}
-.card-content__number > span {
-  font-size: 2.5em;
-}
-
-.position-title{
-  font-family: 'Rampart One', cursive;
 }
 
 .active {
