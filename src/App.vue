@@ -11,9 +11,6 @@
           </router-link>
           <ul class="navbar-nav ml-3 mr-auto">
             <li class="nav-item active">
-              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'home' }">HOME</router-link> 
-            </li>
-            <li class="nav-item active">
               <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'news', params: { id: 1 } }">NEWS</router-link> 
             </li>
             <li class="nav-item active">

@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import NewService from '@/services/NewService.js';
 import MatchService from '@/services/MatchService.js';
+import TeamService from "../services/TeamService";
 
 Vue.use(Vuex);
 
@@ -11,7 +12,8 @@ export default new Vuex.Store({
     categories: [],
     matchTypes: [],
     matches: [],
-    leagueTables: []
+    leagueTables: [],
+    workTypes: []
   },
   mutations: {
     SET_TO_CATEGORIES(state, categories) {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_TO_LEAGUE_TABLES(state, league_table) {
       state.leagueTables = league_table
+    },
+    SET_TO_WORK_TYPES(state, types) {
+      state.workTypes = types
     }
   },
   actions: {
@@ -74,6 +79,15 @@ export default new Vuex.Store({
         })
         .catch(err => {
         console.log(err.response)
+      })
+    },
+    FETCH_WORK_TYPES({ commit }) {
+      return TeamService.getWorkTypes()
+        .then((res) => {
+        commit('SET_TO_WORK_TYPES', res.data.data)
+        })
+        .catch(err => {
+        console.log(err.response);
       })
     }
   },

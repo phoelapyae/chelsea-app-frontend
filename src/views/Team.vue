@@ -27,116 +27,43 @@
         </ul>
       </div>
     </nav>
-    <div class="row px-5 pt-3">
-      <h1 class="mr-auto position-title">{{ team_type_id === 1 ? 'MEN' : team_type_id === 2 ? 'WOMEN' : team_type_id === 3 ? 'ACADAMY' : 'ONLOAN' }}</h1>
-      <ul class="navbar">
-        <li 
-          class="nav-link" 
-          v-for="(type,index) in workTypes" 
-          :key="index"
-          @click="activeWorkButton(type.id)"
-        >
-          <router-link 
-            class="work-type-button p-1 font-weight-bold" 
-            :class="{'active-work-button': type.active}"
-            :to="{ name: 'teams', params: { team_type_id: team_type_id, work_type_id: type.id}}"
-          >
-            {{ type.name }}
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <TeamCard :teams="teams" :positions="positions"></TeamCard>
+    <slot></slot>
+    <match-dashboard :data="data"></match-dashboard>
   </div>
 </template>
 
 <script>
 import TeamService from "@/services/TeamService.js";
-import TeamCard from '@/components/TeamCard.vue';
-
-function getTeams(to, next){
-  let team_type_id = to.params.team_type_id
-  let work_type_id = to.params.work_type_id
-  return TeamService.getTeams(team_type_id, work_type_id)
-      .then((res) => {
-        var teams = res.data.data
-        next()
-        return teams
-      })
-      .catch(err => {
-        console.log(err.response);
-      })
-}
+import MatchDashboard from '@/components/MatchDashboard.vue';
+import NewService from '@/services/NewService.js';
 
 export default {
+  components: {
+    MatchDashboard
+  },
   props: {
     team_type_id: {
-      type: Number,
-      default: 1
+      required: true
     },
-    work_type_id: {
-      type: Number,
-      default: 1
-    },
-  },
-  components: {
-    TeamCard
+    workTypes: {
+      required: null
+    }
   },
   data() {
     return {
-      positions: [],
-      workTypes: [],
       teamTypes: [],
-      teams: [],
       hideCard: false,
-      expanded: {
-        type: Boolean,
-        default: true
-      }
+      data: [Array,Object]
     };
   },
-  beforeRouteEnter (to, from, next) {
-    getTeams(to, next)
-    .then((res) => {
-      console.log(res);
-    })
-  },
-  beforeRouteUpdate(to, from, next){
-    getTeams(to, next)
-    .then((res) => {
-      this.teams = res.teams 
-      this.positions = res.positions
-    })
-  },
   created() {
-    // get work types
-    this.getWorkTypes();
-
     // get team types
-    this.getTeamTypes();
+    this.getTeamTypes()
 
-    // get teams
-    this.getTeams(1,1)   
+    // Matches Dashboard
+    this.getMatchesDashboard()
   },
   methods: {
-    getPositions() {
-      return TeamService.getPositions()
-        .then((res) => {
-          this.positions = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
-    getWorkTypes() {
-      return TeamService.getWorkTypes()
-        .then((res) => {
-          this.workTypes = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
     getTeamTypes() {
       return TeamService.getTeamTypes()
         .then((res) => {
@@ -145,25 +72,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-    },
-    getTeams(team_type_id, work_type_id){
-      return TeamService.getTeams(team_type_id, work_type_id)
-      .then((res) => {
-        this.teams = res.data.data.teams
-        this.positions = res.data.data.positions
-      })
-      .catch(err => {
-        console.log(err.response);
-      })
-    },
-    togglePosition(id){
-      this.positions.map(pos => {
-        if (pos.id == id) {
-          pos.expanded = !this.expanded
-          this.expanded = !this.expanded
-        } 
-        return pos
-      }) 
     },
     setActive(id){
       this.workTypes.map(workType => {
@@ -175,11 +83,13 @@ export default {
         return teamType
       })
     },
-    activeWorkButton(id){
-      return this.workTypes.map(workType => {
-        workType = id == workType.id ? workType.active = true : workType.active = false
-        return workType
-      })
+    getMatchesDashboard(){
+      NewService.getLatestShow()
+      .then((result) => {
+        this.data = result.data.data
+      }).catch((err) => {
+        console.log(err.response);
+      });
     }
   }
 };

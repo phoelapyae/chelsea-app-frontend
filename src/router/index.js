@@ -4,14 +4,17 @@ import VueRouter from "vue-router";
 // Component import
 import News from "../components/News.vue";
 import FixtureResult from "../components/FixtureResult.vue";
+import TeamCard from "../components/TeamCard.vue";
 
 // Page import 
 import Home from "../views/Home.vue";
 import Category from "../views/Category.vue";
+import NewsDetail from "../views/NewsDetail.vue";
 import Match from "../views/Match.vue";
 import LeagueTable from "../views/LeagueTable.vue";
 import DownloadableFixture from "../views/DownloadableFixture.vue";
-import Team from "../views/Team.vue";
+// import Team from "../views/Team.vue";
+import TeamDetail from "../views/TeamDetail.vue";
 import Ticket from "../views/Ticket.vue";
 import Club from "../views/Club.vue";
 
@@ -24,11 +27,12 @@ const routes = [
     component: Home,
   },
   {
-    path: "/categories",
+    path: "/categories/news",
     name: "categories",
     component: Category,
     children: [
-      { path: ":id/news", name: "news", component: News, props: true }
+      { path: ":id", name: "news", component: News, props: true },
+      { path: "news-detail/:id", name: "news-detail", component: NewsDetail, props: true }
     ]
   },
   {
@@ -42,9 +46,17 @@ const routes = [
     ]
   },
   {
-    path: "/teams?team_type_id=:team_type_id&work_type_id=:work_type_id",
-    name: "teams",
-    component: Team,
+    path: "/teams",
+    component: TeamCard,
+    props: true,
+    children: [
+      { path: "team_type_id/:team_type_id/work_type_id/:work_type_id", name: "teams", component: TeamCard, props: true },
+    ]
+  },
+  {
+    path: "/teams/detail/:id",
+    name: "team-detail",
+    component: TeamDetail,
     props: true
   },
   {

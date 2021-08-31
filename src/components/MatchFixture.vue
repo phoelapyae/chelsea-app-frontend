@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <img class="fixture-bg-image" src="../assets/photos/cfc12.jpeg" alt="">
+            <img class="fixture-bg-image" src="../assets/photos/cfc-match-image.jpeg" alt="">
         </div>
         <div class="row p-4 match-content">
             <div class="col-md-8">

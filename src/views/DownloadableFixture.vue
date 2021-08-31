@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <img class="fixture-bg-image" src="../assets/photos/cfc12.jpeg" alt="">
+            <img class="fixture-bg-image" src="../assets/photos/cfc-downloadable-image.jpeg" alt="">
         </div>
         <div class="p-3">
             <p class="font-weight-bold">
