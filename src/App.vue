@@ -23,7 +23,7 @@
               <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'tickets' }">TICKETS & MEMBERSHIP</router-link>             
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'clubs' }">CLUB CHELSEA</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'matchday-tickets' }">CLUB CHELSEA</router-link> 
             </li>
           </ul>
           <ul class="navbar-nav">

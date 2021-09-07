@@ -5,6 +5,9 @@ import VueRouter from "vue-router";
 import News from "../components/News.vue";
 import FixtureResult from "../components/FixtureResult.vue";
 import TeamCard from "../components/TeamCard.vue";
+import BuyTicket from "../components/BuyTicket.vue";
+import MatchdayTicket from "../components/MatchdayTicket.vue";
+import MatchdayPackage from "../components/MatchdayPackage.vue";
 
 // Page import 
 import Home from "../views/Home.vue";
@@ -13,10 +16,9 @@ import NewsDetail from "../views/NewsDetail.vue";
 import Match from "../views/Match.vue";
 import LeagueTable from "../views/LeagueTable.vue";
 import DownloadableFixture from "../views/DownloadableFixture.vue";
-// import Team from "../views/Team.vue";
 import TeamDetail from "../views/TeamDetail.vue";
-import Ticket from "../views/Ticket.vue";
 import Club from "../views/Club.vue";
+import TicketInfo from "../views/TicketInfo.vue";
 
 Vue.use(VueRouter);
 
@@ -60,14 +62,24 @@ const routes = [
     props: true
   },
   {
-    path: "/tickets",
+    path: "/buy-tickets",
     name: "tickets",
-    component: Ticket,
+    component: BuyTicket
+  },
+  {
+    path: '/ticket-infos/:id',
+    name: "ticket-infos",
+    component: TicketInfo,
+    props: true
   },
   {
     path: "/clubs",
     name: "clubs",
     component: Club,
+    children: [
+      { path: "matchday-tickets", name: "matchday-tickets", component: MatchdayTicket },
+      { path: "matchday-packages", name: "matchday-packages", component: MatchdayPackage }
+    ]
   }
 ];
 
