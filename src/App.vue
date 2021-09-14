@@ -28,10 +28,10 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <router-link class="nav-link text-dark font-weight-bold" to="">LOG IN</router-link>             
+              <router-link class="nav-link text-dark font-weight-bold" :to="{name: 'login'}">LOG IN</router-link>             
             </li>
             <li class="nav-item active">
-              <router-link class="nav-link text-dark font-weight-bold" to="">SIGN UP</router-link> 
+              <router-link class="nav-link text-dark font-weight-bold" :to="{name: 'singup'}">SIGN UP</router-link> 
             </li>
           </ul>
         </div>

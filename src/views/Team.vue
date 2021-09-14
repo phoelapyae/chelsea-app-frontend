@@ -18,8 +18,11 @@
           >
             <router-link
               class="nav-link text-dark font-weight-bold"
-              :class="{'active': type.active}"
-              :to="{ name: 'teams', params: { team_type_id: type.id, work_type_id: 1 } }"
+              :class="{ active: type.active }"
+              :to="{
+                name: 'teams',
+                params: { team_type_id: type.id, work_type_id: 1 },
+              }"
             >
               {{ type.name }}
             </router-link>
@@ -34,34 +37,34 @@
 
 <script>
 import TeamService from "@/services/TeamService.js";
-import MatchDashboard from '@/components/MatchDashboard.vue';
-import NewService from '@/services/NewService.js';
+import MatchDashboard from "@/components/MatchDashboard.vue";
+import NewService from "@/services/NewService.js";
 
 export default {
   components: {
-    MatchDashboard
+    MatchDashboard,
   },
   props: {
     team_type_id: {
-      required: true
+      required: true,
     },
     workTypes: {
-      required: null
-    }
+      required: null,
+    },
   },
   data() {
     return {
       teamTypes: [],
       hideCard: false,
-      data: [Array,Object]
+      data: [Array, Object],
     };
   },
   created() {
     // get team types
-    this.getTeamTypes()
+    this.getTeamTypes();
 
     // Matches Dashboard
-    this.getMatchesDashboard()
+    this.getMatchesDashboard();
   },
   methods: {
     getTeamTypes() {
@@ -73,25 +76,32 @@ export default {
           console.log(err.response);
         });
     },
-    setActive(id){
-      this.workTypes.map(workType => {
-        workType = workType.id ==1 ? workType.active = true : workType.active = false
-        return workType
-      })
-      return this.teamTypes.map(teamType => {
-        teamType = id == teamType.id ? teamType.active = true : teamType.active = false
-        return teamType
-      })
-    },
-    getMatchesDashboard(){
-      NewService.getLatestShow()
-      .then((result) => {
-        this.data = result.data.data
-      }).catch((err) => {
-        console.log(err.response);
+    setActive(id) {
+      this.workTypes.map((workType) => {
+        workType =
+          workType.id == 1
+            ? (workType.active = true)
+            : (workType.active = false);
+        return workType;
       });
-    }
-  }
+      return this.teamTypes.map((teamType) => {
+        teamType =
+          id == teamType.id
+            ? (teamType.active = true)
+            : (teamType.active = false);
+        return teamType;
+      });
+    },
+    getMatchesDashboard() {
+      NewService.getLatestShow()
+        .then((result) => {
+          this.data = result.data.data;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+  },
 };
 </script>
 
@@ -114,7 +124,6 @@ export default {
   color: #fff;
   background: blueviolet;
   border: 1px solid #fff;
-
 }
 
 .work-type-button:hover {
@@ -126,7 +135,7 @@ export default {
   border-bottom: 2px solid #000;
 }
 
-.nav-item:hover{
+.nav-item:hover {
   border-bottom: 2px solid #000;
 }
 </style>

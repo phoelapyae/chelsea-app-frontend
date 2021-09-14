@@ -41,7 +41,6 @@
 import NewService from '@/services/NewService.js';
 import NewsCard from '@/components/NewsCard.vue';
 import MatchDashboard from '@/components/MatchDashboard.vue';
-
 export default {
   components: {
     NewsCard,
@@ -61,13 +60,11 @@ export default {
     });
   }
 };
-
 </script>
 <style scoped>
 .carousel-item__image{
   max-height: 600px !important;
 }
-
 .all-news-button {
     border: 1px solid blue;
     color: blue;
