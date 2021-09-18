@@ -26,13 +26,19 @@
               <router-link class="nav-link text-dark font-weight-bold" :to="{ name: 'matchday-tickets' }">CLUB CHELSEA</router-link> 
             </li>
           </ul>
-          <ul class="navbar-nav">
+          <ul v-if="!loggedIn" class="navbar-nav">        
             <li class="nav-item active">
               <router-link class="nav-link text-dark font-weight-bold" :to="{name: 'login'}">LOG IN</router-link>             
             </li>
             <li class="nav-item active">
               <router-link class="nav-link text-dark font-weight-bold" :to="{name: 'singup'}">SIGN UP</router-link> 
             </li>
+          </ul>
+          <ul v-else class="navbar-nav">        
+            <router-link :to="{ name: 'profile'}">
+                <img class="profile-photo" alt="Profile photo" :src="getAvatar()" />
+            </router-link>
+            <button class="btn" @click="logout">Sign Out</button>
           </ul>
         </div>
       </nav>
@@ -47,18 +53,35 @@
 <script>
 import Sponsor from '@/components/Sponsor.vue';
 import Footer from '@/components/Footer.vue';
+import { authComputed } from './store/helpers.js';
 export default {
     components: {
         Sponsor,
         Footer
+    },
+    computed: {
+      ...authComputed
+    },
+    methods: {
+      logout(){
+        this.$store.dispatch('logout')
+      },
+      getAvatar(){
+        let user = this.$store.state.user
+        return user ? `${user.avatar}` : null
+      }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .content {
-background: rgb(224, 235, 235);
-
+  background: rgb(224, 235, 235);
+}
+.profile-photo{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 @import'~bootstrap/dist/css/bootstrap.css';
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");

@@ -8,6 +8,9 @@ import TeamCard from "../components/TeamCard.vue";
 import BuyTicket from "../components/BuyTicket.vue";
 import MatchdayTicket from "../components/MatchdayTicket.vue";
 import MatchdayPackage from "../components/MatchdayPackage.vue";
+import Dashboard from "../components/Dashboard.vue";
+import Profile from "../components/Profile.vue";
+import AccountSetting from "../components/AccountSetting.vue";
 
 // Page import
 import Home from "../views/Home.vue";
@@ -21,6 +24,7 @@ import Club from "../views/Club.vue";
 import TicketInfo from "../views/TicketInfo.vue";
 import Login from "../views/Login.vue";
 import SingUp from "../views/SingUp.vue";
+import Account from "../views/Account.vue";
 
 Vue.use(VueRouter);
 
@@ -120,6 +124,17 @@ const routes = [
     name: "singup",
     component: SingUp,
   },
+  {
+    path: "/account",
+    name: "account",
+    component: Account,
+    meta: { requiresAuth: true },
+    children: [
+      {path: "dashboard", name: "dashboard", component: Dashboard},
+      {path: "profile", name: "profile", component: Profile},
+      {path: "setting", name: "setting", component: AccountSetting}
+    ]
+  }
 ];
 
 const router = new VueRouter({
@@ -127,5 +142,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user')
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next('/')
+  }
+  next()
+})
 
 export default router;

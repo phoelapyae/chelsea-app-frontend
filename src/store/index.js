@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios';
 import NewService from "@/services/NewService.js";
 import MatchService from "@/services/MatchService.js";
 import TeamService from "../services/TeamService";
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     matches: [],
     leagueTables: [],
     workTypes: [],
+    user: null
   },
   mutations: {
     SET_TO_CATEGORIES(state, categories) {
@@ -34,6 +36,21 @@ export default new Vuex.Store({
     SET_TO_WORK_TYPES(state, types) {
       state.workTypes = types;
     },
+    SET_USER_DATA(state, userData) {
+      state.user = userData
+      localStorage.setItem('user', JSON.stringify(userData))
+      axios.defaults.headers.common['Authorization'] = `Bearer ${ userData.token }`
+    },
+    CLEAR_USER_DATA() {
+      localStorage.removeItem('user')
+      location.reload()
+    },
+    UPDATE_USER(state, user) {
+      state.user.name = user.name
+      state.user.dob = user.dob
+      state.user.avatar = user.avatar
+      state.user.email = user.email
+    }
   },
   actions: {
     FETCH_CATEGORIES({ commit }) {
@@ -90,6 +107,30 @@ export default new Vuex.Store({
           console.log(err.response);
         });
     },
+    login({ commit }, credentials) {
+       return axios.post('//localhost:8000/api/login', credentials)
+        .then(({ data }) => {
+          commit('SET_USER_DATA', data)
+        })
+    },
+    register({ commit }, credentials) {
+       return axios.post('//localhost:8000/api/register', credentials)
+        .then(({ data }) => {
+          commit('SET_USER_DATA', data)
+        })
+    },
+    logout({ commit }) {
+      commit('CLEAR_USER_DATA')
+    },
+    UPDATE_PROFILE({ commit }, userData) {
+      commit('UPDATE_USER', userData)
+    }
   },
   modules: {},
+  getters: {
+    loggedIn(state) {
+      // const user = localStorage.getItem('user');
+      return !!state.user
+    }
+  }
 });

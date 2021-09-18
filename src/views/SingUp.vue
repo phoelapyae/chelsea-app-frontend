@@ -8,7 +8,7 @@
                       <h1>Singup</h1>
                     </v-card-title>
                     <v-card-text>
-                       <v-form ref="singUpForm" v-model="formValidity">
+                       <v-form @submit.prevent="register" ref="singUpForm" v-model="formValidity">
                          <v-text-field 
                           label="Enter Fullname"
                           v-model="name"
@@ -22,16 +22,29 @@
                           required
                           ></v-text-field>
 
-                          <v-file-input
-                            accept="image/*"
-                            label="Profile photo"
-                          ></v-file-input>
-
-                          <v-text-field v-model="picker" readonly></v-text-field>
+                          <v-text-field v-model="dob" readonly></v-text-field>
                           <div class="row" justify="left">
-                              <v-date-picker v-model="picker"></v-date-picker>
+                              <v-date-picker v-model="dob"></v-date-picker>
                           </div>
-                          
+
+                          <v-text-field 
+                            label="Password" 
+                            :type="showPassword ? 'text' : 'password'" 
+                            prepend-icon="mdi-lock" 
+                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="showPassword = !showPassword"
+                            v-model="password"
+                          ></v-text-field>
+
+                          <v-text-field 
+                            label="Confirm Password" 
+                            :type="showConfirmPassword ? 'text' : 'password'" 
+                            prepend-icon="mdi-lock" 
+                            :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                            @click:append="showConfirmPassword = !showConfirmPassword"
+                            v-model="password_confirmation"
+                          ></v-text-field>
+
                           <v-checkbox
                             v-model="agreeToTerms"
                             label="Agree terms & conditions."
@@ -39,14 +52,17 @@
                             :rules="agreeToTermsRules"
                             required
                           ></v-checkbox>
+
+                           <!-- <v-card-actions> -->
+                      <v-btn class="mr-4" :disabled="!formValidity" type="submit">Sing Up</v-btn>
+                      <!-- <v-btn class="mr-4" @click="formValidate">Validate Form</v-btn>
+                      <v-btn class="mr-4" @click="resetValidation()">Reset Validation</v-btn>
+                      <v-btn @click="reset">Reset</v-btn> -->
+                    <!-- </v-card-actions> -->
+
                       </v-form>
                     </v-card-text>
-                    <v-card-actions>
-                      <v-btn class="mr-4" :disabled="!formValidity">Sing Up</v-btn>
-                      <v-btn class="mr-4" @click="formValidate">Validate Form</v-btn>
-                      <v-btn class="mr-4" @click="resetValidation()">Reset Validation</v-btn>
-                      <v-btn @click="reset">Reset</v-btn>
-                    </v-card-actions>
+                   
                   </v-card>
                     
                 </v-col>
@@ -59,12 +75,14 @@
     export default {
         data: () => ({
             name: '',
-            picker: '',
+            email: '',
+            dob: '',
+            password: '',
+            password_confirmation: '',
             agreeToTerms: false,
             agreeToTermsRules: [
                 value => !!value || 'You must agree terms and conditions to sing up for an account.'
             ],
-            email: '',
             emailRules: [
                 value => !!value || 'Required email address.',
                 value => value.indexOf('@') !== 0 || 'Email should have a username.',
@@ -72,7 +90,9 @@
                 value => value.indexOf('.') - value.indexOf('@') > 1 || 'Email should have a domain.',
                 value => value.indexOf('.') <= value.length - 3 || 'Email should contain a valid domain extension.'
             ],
-            formValidity: false
+            formValidity: false,
+            showPassword: false,
+            showConfirmPassword: false
         }),
         methods: {
             resetValidation(){
@@ -83,6 +103,22 @@
             },
             formValidate(){
                 this.$refs.singUpForm.validate()
+            },
+            register(){
+              console.log('Hit to the register form');
+              this.$store.dispatch('register', {
+                name: this.name,
+                email: this.email,
+                dob: this.dob,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+              })
+              .then(() => {
+                this.$router.push({ name: 'account'})
+              })
+              .catch(err => {
+                console.log(err.response);
+              })
             }
         }
     }
