@@ -4,6 +4,7 @@ import axios from 'axios';
 import NewService from "@/services/NewService.js";
 import MatchService from "@/services/MatchService.js";
 import TeamService from "../services/TeamService";
+import PackageService from "../services/PackageService";
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     categories: [],
     matchTypes: [],
     matches: [],
+    packages: [],
     leagueTables: [],
     workTypes: [],
     user: null
@@ -29,6 +31,9 @@ export default new Vuex.Store({
     },
     SET_TO_MATCHES(state, matches) {
       state.matches = matches;
+    },
+    SET_TO_PACKAGES(state, packages) {
+      state.packages = packages;
     },
     SET_TO_LEAGUE_TABLES(state, league_table) {
       state.leagueTables = league_table;
@@ -89,6 +94,15 @@ export default new Vuex.Store({
           console.log(err.response);
         });
     },
+    FETCH_PACKAGES({ commit }) {
+      return PackageService.getPackages()
+        .then((res) => {
+          commit("SET_TO_PACKAGES", res.data.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
     FETCH_LEAGUE_TABLES({ commit }) {
       return MatchService.getLeagueTables()
         .then((res) => {
@@ -124,7 +138,8 @@ export default new Vuex.Store({
     },
     UPDATE_PROFILE({ commit }, userData) {
       commit('UPDATE_USER', userData)
-    }
+    },
+
   },
   modules: {},
   getters: {

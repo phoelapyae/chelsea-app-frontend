@@ -33,13 +33,6 @@
         </ul>
       </div>
     </nav>
-    <div>
-      <img
-        class="w-100"
-        src="../assets/photos/cfc-downloadable-image.jpeg"
-        alt=""
-      />
-    </div>
     <router-view></router-view>
   </div>
 </template>

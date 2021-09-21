@@ -1,4 +1,5 @@
 import axios from "axios";
+import NProgress from 'nprogress';
 
 let access_token = null;
 
@@ -17,5 +18,15 @@ const apiClient = axios.create({
     "Authorization": access_token
   },
 });
+
+apiClient.interceptors.request.use(request => {
+    NProgress.start()
+    return request
+})
+
+apiClient.interceptors.response.use(response => {
+    NProgress.done()
+    return response
+})
 
 export default apiClient;

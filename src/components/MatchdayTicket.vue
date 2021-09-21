@@ -1,5 +1,6 @@
 <template>
   <div>
+    <club-bg-image></club-bg-image>
     <div class="matches p-5">
       <div v-for="(match, index) in matches" :key="index">
         <div
@@ -39,14 +40,17 @@
                 <img :src="pack.cover_image" alt="" />
               </div>
               <div class="col-md-4 p-3">
-                <h3>{{ pack.name }}</h3>
+                <router-link class="package-name" :to="{name: 'package-detail', params: { package_id: pack.id }}">
+                  <h3>{{ pack.name }}</h3>
+                </router-link>
                 <div class="mt-5">
                   <h3>
                     <span class="text-success">£{{ pack.price }}</span>
                   </h3>
-                  <a href="" class="btn btn-warning text-white font-weight-bold"
+                  <!-- <a href="" class="btn btn-warning text-white font-weight-bold"
                     >LIMITED</a
-                  >
+                  > -->
+                  <router-link class="nav-link btn btn-primary" :to="{name: 'seat-selection', query: {package_id: pack.id, match_id: match.id}}">Buy Now</router-link>
                 </div>
               </div>
               <div class="col-md-4 p-3">
@@ -65,8 +69,13 @@
 
 <script>
 import TicketService from "@/services/TicketService.js";
+import PackageService from "@/services/PackageService.js";
+import ClubBgImage from '@/components/ClubBgImage.vue';
 
 export default {
+  components: {
+    ClubBgImage
+  },
   data() {
     return {
       matches: [Array, Object],
@@ -91,7 +100,7 @@ export default {
         });
     },
     getBenefits() {
-      TicketService.getBenefits()
+      PackageService.getBenefits()
         .then((res) => {
           this.benefits = res.data.data;
         })
@@ -110,5 +119,14 @@ export default {
 /** Match Styles */
 .matches-card {
   cursor: pointer;
+}
+
+/** Package Styles */
+.package-name {
+  text-decoration: none;
+}
+
+.package-name:hover {
+  color: rgb(5, 168, 5);
 }
 </style>

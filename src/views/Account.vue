@@ -9,7 +9,7 @@
                <p>{{ user.email }}</p>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <nav
                 class="
                     navbar navbar-expand-lg navbar-dark
@@ -24,12 +24,22 @@
                         >
                             <router-link
                             class="nav-link text-dark"
-                            :to="{ name: 'dashboard' }"
+                            :to="{ name: 'ticket-order' }"
                             >
-                            Dashboard
+                            Match Tickets
                             </router-link>
                         </li>
-                            <li
+                        <li
+                            class="nav-item"
+                        >
+                            <router-link
+                            class="nav-link text-dark"
+                            :to="{ name: 'package-order' }"
+                            >
+                            Match Packages
+                            </router-link>
+                        </li>
+                        <li
                             class="nav-item"
                         >
                             <router-link
@@ -81,5 +91,8 @@
     border-radius: 50%;
     width: 100%;
     height: 190px;
+}
+.active, .nav-item:hover {
+    border-bottom: 2px solid #000;
 }
 </style>

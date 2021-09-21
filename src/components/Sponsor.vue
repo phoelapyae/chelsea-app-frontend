@@ -133,7 +133,8 @@ export default {};
 <style scoped>
 #sponsor {
   width: 100%;
-  height: 300px;
+  height: 350px;
+  position: relative;
 }
 
 .middle-sponsor-image {
