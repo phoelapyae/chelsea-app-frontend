@@ -50,7 +50,7 @@ export default {
     created() {
         this.getPaymentSteps()
         this.getPaymentTypes()
-        this.$store.dispatch('FETCH_PACKAGES')
+        // this.$store.dispatch('FETCH_PACKAGES')
     },
     methods: {
         getPaymentSteps(){

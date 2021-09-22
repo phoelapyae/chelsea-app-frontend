@@ -14,7 +14,14 @@ export default new Vuex.Store({
     categories: [],
     matchTypes: [],
     matches: [],
+    match: null,
     packages: [],
+    pack: null,
+    payments: [],
+    carts: [],
+    cart: null,
+    orders: [],
+    order: null,
     leagueTables: [],
     workTypes: [],
     user: null
@@ -32,8 +39,29 @@ export default new Vuex.Store({
     SET_TO_MATCHES(state, matches) {
       state.matches = matches;
     },
+    SET_TO_MATCH(state, match) {
+      state.match = match;
+    },
     SET_TO_PACKAGES(state, packages) {
       state.packages = packages;
+    },
+    SET_TO_PACKAGE(state, pack) {
+      state.pack = pack;
+    },
+    SET_TO_PAYMENTS(state, payments) {
+      state.payments = payments;
+    },
+    SET_TO_CARTS(state, carts) {
+      state.carts = carts;
+    },
+    SET_TO_CART(state, cart) {
+      state.cart = cart;
+    },
+    SET_TO_ORDERS(state, orders) {
+      state.orders = orders;
+    },
+    SET_TO_ORDER(state, order) {
+      state.order = order;
     },
     SET_TO_LEAGUE_TABLES(state, league_table) {
       state.leagueTables = league_table;

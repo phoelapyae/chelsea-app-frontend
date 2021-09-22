@@ -9,5 +9,14 @@ export default {
     },
     packageDetail(package_id) {
         return apiClient.get('/buy-packages/detail/'+package_id)
+    },
+    addPackageToCart(credentials) {
+        return apiClient.post('/buy-packages/add-to-cart', credentials)
+    },
+    orderPackage(credentials) {
+        return apiClient.post('/buy-packages/order', credentials)
+    },
+    confirmOrderPackage(order_id) {
+        return apiClient.post('/buy-packages/confirm-order', order_id)
     }
 }
